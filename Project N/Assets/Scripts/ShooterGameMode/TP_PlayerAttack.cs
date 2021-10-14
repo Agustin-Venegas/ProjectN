@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonCharacter : MonoBehaviour
+//encargado de atacar
+
+public class TP_PlayerAttack : MonoBehaviour
 {
+	[Header("Partes")]
+    public Transform firePoint;
+	public GameObject bullet;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +19,9 @@ public class ThirdPersonCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButton("Fire1")) 
+		{
+			Instantiate(bullet, firePoint.position);
+		}
     }
 }
