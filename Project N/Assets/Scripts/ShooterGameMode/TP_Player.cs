@@ -35,15 +35,26 @@ public class TP_Player : MonoBehaviour, IHurtable
     // Update is called once per frame
     void Update()
     {
+		bool moving = false;
 		
-		if (Input.GetKey(KeyCode.A)) 
+		if (Input.GetKey(KeyCode.A) && !kneeling) 
 		{
-			transform.position = new Vector3(transform.position.x-speed*Time.deltaTime, transform.position.y, transform.position.z);
+			if (!kneeling)
+			{
+				transform.position = new Vector3(transform.position.x-speed*Time.deltaTime, transform.position.y, transform.position.z);
+				moving = true;
+			}
+			
 			anim.SetBool("right", false);
 		} else
-		if (Input.GetKey(KeyCode.D)) 
+		if (Input.GetKey(KeyCode.D) && !kneeling) 
 		{
-			transform.position = new Vector3(transform.position.x+speed*Time.deltaTime, transform.position.y, transform.position.z);
+			if (!kneeling)
+			{
+				transform.position = new Vector3(transform.position.x+speed*Time.deltaTime, transform.position.y, transform.position.z);
+				moving = true;
+			}
+			
 			anim.SetBool("right", true);
 		}
 		
@@ -57,6 +68,7 @@ public class TP_Player : MonoBehaviour, IHurtable
 		
 		
 		anim.SetBool("kneel", kneeling);
+		anim.SetBool("moving", moving);
     }
 	
 	
@@ -70,6 +82,7 @@ public class TP_Player : MonoBehaviour, IHurtable
 	public void Kneel()
 	{
 		kneeling = true;
+		anim.SetBool("moving", false);
 	}
 	
 	public void StopKneel()

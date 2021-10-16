@@ -25,7 +25,7 @@ public class TP_Cover : MonoBehaviour, IHurtable
 	
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.GetComponentInChildren<TP_Player>() != null)
+		if (other.gameObject.GetComponent<TP_Player>() != null)
         {
             TP_Player.Instance.Kneel();
         }
@@ -33,7 +33,7 @@ public class TP_Cover : MonoBehaviour, IHurtable
 	
 	void OnTriggerExit2D(Collider2D other) 
 	{
-		if (other.gameObject.GetComponentInChildren<TP_Player>() != null)
+		if (other.gameObject.GetComponent<TP_Player>() != null)
         {
             TP_Player.Instance.StopKneel();
         }
