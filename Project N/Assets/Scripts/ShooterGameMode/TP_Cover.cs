@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 //causa que el jugador se arrodille y reciba menos daño
@@ -13,6 +14,10 @@ public class TP_Cover : MonoBehaviour, IHurtable
 	
 	[Header("Partes")]
 	public Transform firepoint;
+	
+	[Header("Evento Destruir")]
+	public UnityEvent OnDie;
+	
 	
     // Start is called before the first frame update
     void Start()
@@ -43,9 +48,9 @@ public class TP_Cover : MonoBehaviour, IHurtable
 	}
 	
 	public bool IsAlive() {return HP>0 || HP == -1;}
-	public bool Hurt(int d) {HP -= d; return !IsAlive();}
+	public bool Hurt(int d) {HP -= d; if (IsAlive()) { return false; } else {Die(); return true;}}
 	public void Die() 
 	{
-		
+		OnDie.Invoke();
 	}
 }
