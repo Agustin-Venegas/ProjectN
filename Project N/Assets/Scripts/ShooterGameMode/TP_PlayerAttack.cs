@@ -9,6 +9,7 @@ public class TP_PlayerAttack : MonoBehaviour
 	[Header("Partes")]
     public Transform firePoint;
 	public GameObject bullet;
+	private Transform actualFirePoint;
 	
 	private Vector2 mousePos;
 	public Camera cam;
@@ -16,6 +17,7 @@ public class TP_PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		actualFirePoint = firePoint;
     }
 
     // Update is called once per frame
@@ -23,12 +25,23 @@ public class TP_PlayerAttack : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) //click izquierdo
 		{
-			Instantiate(bullet, firePoint.position, firePoint.rotation);
+			Instantiate(bullet, actualFirePoint.position, actualFirePoint.rotation);
 		}
 		
 		mousePos = cam.ScreenToWorldPoint(Input.mousePosition); //posicion del mouse respecto a la camara 
-		Vector2 lookDir = mousePos - (Vector2)firePoint.position;
+		Vector2 lookDir = mousePos - (Vector2)actualFirePoint.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //arctangente de (y,x)
-        firePoint.rotation = Quaternion.Euler(0,0,angle);
+        actualFirePoint.rotation = Quaternion.Euler(0,0,angle);
     }
+	
+	//indicar donde se va a disparar
+	public void Kneel(Transform nfp)
+	{
+		actualFirePoint = nfp;
+	}
+	
+	public void StopKneel()
+	{
+		actualFirePoint = firePoint;
+	}
 }

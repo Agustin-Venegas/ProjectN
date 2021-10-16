@@ -11,6 +11,9 @@ public class TP_Cover : MonoBehaviour, IHurtable
 	[Header("Atributos")]
 	public int HP = 1; //si es -1, es invencible
 	
+	[Header("Partes")]
+	public Transform firepoint;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +30,7 @@ public class TP_Cover : MonoBehaviour, IHurtable
 	{
 		if (other.gameObject.GetComponent<TP_Player>() != null)
         {
-            TP_Player.Instance.Kneel();
+            TP_Player.Instance.Kneel(firepoint);
         }
 	}
 	

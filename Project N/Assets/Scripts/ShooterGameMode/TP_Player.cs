@@ -12,8 +12,12 @@ public class TP_Player : MonoBehaviour, IHurtable
 	public float speed;
     private int hp;
 	private bool kneeling;
+	public bool kneel {get {return kneeling;}}
+	private bool right;
+	public bool r {get {return right;}}
 
 	[Header("Partes")]
+	public TP_PlayerAttack attackComponent;
 	public Animator anim;
 	
 	[Header("HUD Prefabs")]
@@ -29,6 +33,11 @@ public class TP_Player : MonoBehaviour, IHurtable
         if (anim == null)
 		{
 			anim = gameObject.GetComponent<Animator>();
+		}
+		
+		if (attackComponent == null)
+		{
+			attackComponent = gameObject.GetComponent<TP_PlayerAttack>();
 		}
     }
 
@@ -79,14 +88,18 @@ public class TP_Player : MonoBehaviour, IHurtable
 		anim.SetBool("alive", false);
 	}
 
-	public void Kneel()
+	public void Kneel(Transform nfp)
 	{
 		kneeling = true;
 		anim.SetBool("moving", false);
+		
+		attackComponent.Kneel(nfp);
 	}
 	
 	public void StopKneel()
 	{
 		kneeling = false;
+		
+		attackComponent.StopKneel();
 	}
 }

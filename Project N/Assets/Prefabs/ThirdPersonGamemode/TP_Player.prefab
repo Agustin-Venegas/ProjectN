@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1625307678986884673}
   - component: {fileID: 1625307678986884678}
   - component: {fileID: 1625307678986884676}
+  - component: {fileID: 1892370714}
   m_Layer: 0
   m_Name: TP_Player
   m_TagString: Untagged
@@ -99,7 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP_Max: 100
-  speed: 1
+  speed: 3
+  attackComponent: {fileID: 0}
+  anim: {fileID: 0}
   pause: {fileID: 0}
 --- !u!114 &1625307678986884673
 MonoBehaviour:
@@ -114,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1625307680039055167}
-  bullet: {fileID: 0}
+  bullet: {fileID: 7080658317117477039, guid: 4b280438b3abe954cafa590c6d239c5e, type: 3}
   cam: {fileID: 0}
 --- !u!95 &1625307678986884678
 Animator:
@@ -161,6 +164,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.92, y: 1.79}
   m_EdgeRadius: 0
+--- !u!50 &1892370714
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625307678986884674}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1625307680039055160
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625307680039055160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.09, z: 0}
+  m_LocalPosition: {x: 0, y: 1.349, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1625307678986884679}
