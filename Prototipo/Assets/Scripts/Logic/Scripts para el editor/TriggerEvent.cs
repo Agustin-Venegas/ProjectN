@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 //esto activa algo al chocar con el personaje
+//puedes decidir si se destruye o no
 
 public class TriggerEvent : MonoBehaviour
 {
