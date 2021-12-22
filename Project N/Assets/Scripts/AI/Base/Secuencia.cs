@@ -4,37 +4,41 @@ using UnityEngine;
 
 namespace BehaviourTree
 {
-	//Selector: Ejecuta los hijos hasta que uno regrese SUCCESS
-	//Si ninguno tira SUCCESS, regresa FAILURE
+	//Secuencia: Ejecuta todos los nodos hijos hasta que uno falla
+	//Los que estan corriendo van a seguir corriendo
 	
-	public class Selector : Node
+	public class Secuencia : Node
 	{
+		
 		protected List<Node> nodes = new List<Node>();
 		
-		public Selector(List<Node> n) 
+		public Secuencia(List<Node> n) 
 		{
 			nodes = n;
-		}
+		}		
 		
 		public override NodeStates Evaluar() 
-		{ 
+		{
+			bool any_running = false;
+			
 			foreach (Node node in nodes)
 			{ 
 				switch (node.Evaluar())
 				{ 
-                case NodeStates.FAILURE: 
-                    continue;
                 case NodeStates.SUCCESS: 
-                    actualState = NodeStates.SUCCESS; 
+                    continue;
+                case NodeStates.FAILURE: 
+                    actualState = NodeStates.FAILURE; 
                     return actualState; 
                 case NodeStates.RUNNING: 
-                    actualState = NodeStates.RUNNING; 
-                    return actualState; 
+                    any_running = true;
+					continue;
                 default: 
                     continue; 
 				} 
-			} 
-			actualState = NodeStates.FAILURE; 
+			}
+			
+			actualState = any_running ? NodeStates.RUNNING : NodeStates.SUCCESS;
 			return actualState; 
 		}
 	}
