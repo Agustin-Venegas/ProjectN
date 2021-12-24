@@ -2,44 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BT
 {
 	//Secuencia: Ejecuta todos los nodos hijos hasta que uno falla
 	//Los que estan corriendo van a seguir corriendo
 	
-	public class Secuencia : Node
+	public class Secuencia : CompositeNode
 	{
-		
-		protected List<Node> nodes = new List<Node>();
-		
 		public Secuencia(List<Node> n) 
 		{
 			nodes = n;
-		}		
+		}
 		
-		public override NodeStates Evaluar() 
+		public override NodeReturn Evaluar() 
 		{
 			bool any_running = false;
 			
 			foreach (Node node in nodes)
 			{ 
-				switch (node.Evaluar())
-				{ 
+				switch (node.Evaluar().state)
+				{
+					
                 case NodeStates.SUCCESS: 
                     continue;
+					
                 case NodeStates.FAILURE: 
                     actualState = NodeStates.FAILURE; 
-                    return actualState; 
+                    return new NodeReturn(actualState);
+					
                 case NodeStates.RUNNING: 
                     any_running = true;
 					continue;
+					
                 default: 
                     continue; 
 				} 
 			}
 			
-			actualState = any_running ? NodeStates.RUNNING : NodeStates.SUCCESS;
-			return actualState; 
+			if (any_running) 
+			{
+				return new NodeReturn(actualState, this);
+			} else 
+			{
+				return new NodeReturn(actualState);
+			}
 		}
 	}
 }

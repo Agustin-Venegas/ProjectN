@@ -2,40 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BT
 {
 	//Selector: Ejecuta los hijos hasta que uno regrese SUCCESS
 	//Si ninguno tira SUCCESS, regresa FAILURE
-	
-	public class Selector : Node
+	public class Selector : CompositeNode
 	{
-		protected List<Node> nodes = new List<Node>();
-		
 		public Selector(List<Node> n) 
 		{
 			nodes = n;
 		}
 		
-		public override NodeStates Evaluar() 
-		{ 
+		public override NodeReturn Evaluar() 
+		{
+			NodeReturn n;
+			
 			foreach (Node node in nodes)
-			{ 
-				switch (node.Evaluar())
+			{
+				n = node.Evaluar();
+				switch (n.state)
 				{ 
                 case NodeStates.FAILURE: 
                     continue;
                 case NodeStates.SUCCESS: 
                     actualState = NodeStates.SUCCESS; 
-                    return actualState; 
+                    return n; 
                 case NodeStates.RUNNING: 
                     actualState = NodeStates.RUNNING; 
-                    return actualState; 
+                    return n; 
                 default: 
                     continue; 
 				} 
-			} 
-			actualState = NodeStates.FAILURE; 
-			return actualState; 
+			}
+			
+			actualState = NodeStates.FAILURE;
+			n = new NodeReturn(actualState);
+			
+			return n; 
 		}
 	}
 }

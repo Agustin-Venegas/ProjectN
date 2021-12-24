@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BT
 {
 	
 	//un nodo que ejecuta una funcion (delegado)
@@ -24,28 +24,33 @@ namespace BehaviourTree
 			
 		}
 		
-		public override NodeStates Evaluar()
+		public override NodeReturn Evaluar()
 		{
+			NodeReturn n = new NodeReturn();
+			
 			//se ejecuta y returna el action
 			switch (m_action())
 			{
 				case NodeStates.SUCCESS:
-				actualState = NodeStates.SUCCESS;
-				return actualState;
+				n.state = NodeStates.SUCCESS;
+				break;
 				
 				case NodeStates.FAILURE:
-				actualState = NodeStates.FAILURE;
-				return actualState;
+				n.state = NodeStates.FAILURE;
+				break;
 				
 				case NodeStates.RUNNING:
-				actualState = NodeStates.RUNNING;
-				return actualState;
+				n.state = NodeStates.RUNNING;
+				n.node = this;
+				break;
 				
 				//esto es importante, el comportamiento default
 				default:
-				actualState = NodeStates.FAILURE;
-				return actualState;
+				n.state = NodeStates.FAILURE;
+				break;
 			}
+			
+			return n;
 		}
 	}
 }

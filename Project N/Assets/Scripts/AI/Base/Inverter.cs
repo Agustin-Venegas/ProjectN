@@ -2,40 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BT
 {
-	public class Inverter : Node
+	public class Inverter : DecoratorNode
 	{
-		private Node node;
-		public Node GetNode() {return node;}
+		public Node GetNode() {return child;}
 		
 		public Inverter(Node n) 
 		{
-			node = n;
+			child = n;
 		}
 		
-		public override NodeStates Evaluar()
+		public override NodeReturn Evaluar()
 		{
-			switch (node.Evaluar())
+			NodeReturn n = child.Evaluar();
+			switch (n.state)
 			{
 				case NodeStates.RUNNING:
-				actualState = NodeStates.RUNNING;
-				break;
+				return n;
 				
 				case NodeStates.FAILURE:
-				actualState = NodeStates.SUCCESS;
+				n.state = NodeStates.SUCCESS;
 				break;
 				
 				case NodeStates.SUCCESS:
-				actualState = NodeStates.FAILURE;
+				n.state = NodeStates.FAILURE;
 				break;
 				
 				default:
-				actualState = NodeStates.SUCCESS;
+				n.state = NodeStates.SUCCESS;
 				break;
 			}
 			
-			return actualState;
+			return n;
 		}
 	}
 }

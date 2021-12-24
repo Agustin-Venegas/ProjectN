@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BT
 {
 	
 	//nodo generico. Todos los nodos heredan de esto
@@ -16,7 +16,7 @@ namespace BehaviourTree
 		
 		public Node() {}
 		
-		public abstract NodeStates Evaluar();
+		public abstract NodeReturn Evaluar();
 		
 	}
 }
