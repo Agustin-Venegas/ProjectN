@@ -1,0 +1,15 @@
+Sistema de Arbol de Comportamientos (BT)
+
+Super Basico, pero corre
+
+Hay que heredar de BehaviourTree y de BT_Agent para crear funcionalidades unicas.
+
+Cada Gameobject que necesite BT debe tener un BT_Agent dentro.
+
+Este BT_Agent tiene funciones y valores que necesita el arbol para funcionar
+El Agent contiene un objeto arbol (no aparecerá en el editor)
+El Agente heredado contiene las funciones que tienen relación con el Gameobject
+(mover, disparar un evento/objeto, revisar colisiones, etc).
+
+El BT heredado tiene un constructor donde se crean todos los nodos que
+se necesitan para crear el comportamiento

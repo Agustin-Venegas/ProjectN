@@ -13,8 +13,7 @@ public class BT_Agent : MonoBehaviour
 	
     void Start()
     {
-        Controller = new BehaviourTree();
-		Controller.root = new ConditionNode(CheckDistanceToPlayer);
+		
     }
 
     // Update is called once per frame
@@ -22,10 +21,4 @@ public class BT_Agent : MonoBehaviour
     {
         
     }
-	
-	public bool CheckDistanceToPlayer()
-	{
-		//float v = Vector3.Distance(this.transform.position, other.position);
-		return true;
-	}
 }

@@ -3,29 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using BT;
 
+[System.Serializable]
 public class BehaviourTree
 {
 	
 	[Header("Tree Vars")]
-	public bool Thinking = true; //si está funcionando
-	public float frequency = 0.3f;
+	public bool thinking = true; //si está funcionando
 	
 	public Node root;
 	
-	private IEnumerator Think()
+	private NodeReturn lastFrame = new NodeReturn();
+	
+	private void Think()
 	{
-		NodeReturn val = new NodeReturn();
-		
-		while (Thinking) 
+		if (thinking)
 		{
-			yield return new WaitForSeconds(0.5f);
-			
-			if (val.state == NodeStates.RUNNING)
+			if (lastFrame.state == NodeStates.RUNNING)
 			{
-				val = val.node.Evaluar();
+				lastFrame = lastFrame.node.Evaluar();
 			} else 
 			{
-				val = root.Evaluar();
+				lastFrame = root.Evaluar();
 			}
 		}
 	}

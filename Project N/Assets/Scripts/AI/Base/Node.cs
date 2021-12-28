@@ -5,8 +5,6 @@ namespace BT
 {
 	
 	//nodo generico. Todos los nodos heredan de esto
-	
-	[System.Serializable]
 	public abstract class Node
 	{
 		
